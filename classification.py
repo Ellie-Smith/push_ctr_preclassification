@@ -28,10 +28,10 @@ import random
 
 ctr_train = load_iris('train2.csv')
 ctr_test = load_iris('test2.csv')
-ctr_train_data = preprocessing.scale(ctr_train.data)
-ctr_test_data = preprocessing.scale(ctr_test.data)
-# ctr_train_data = ctr_train.data
-# ctr_test_data = ctr_test.data
+# ctr_train_data = preprocessing.scale(ctr_train.data)
+# ctr_test_data = preprocessing.scale(ctr_test.data)
+ctr_train_data = ctr_train.data
+ctr_test_data = ctr_test.data
 
 def svmClassifier(data,target):
     clf = svm.SVC()
@@ -59,7 +59,7 @@ def getResult(predict_list,label):
             FN += 1
         else:
             TN += 1
-    # print 'TP: ',TP,'TN: ',TN,'FP: ',FP,'FN: ',FN
+    print 'TP: ',TP,'TN: ',TN,'FP: ',FP,'FN: ',FN
     if TP+FP == 0:
         percision = 0
     else:
@@ -86,7 +86,6 @@ for depth in range(1,8):
             predict.append(classifier.predict([ctr_test_data[i]]))
             # print classifier.predict([ctr_test_data[i]]),ctr_test.target[i]
 
-
         p,r,f1 = getResult(predict,ctr_test.target)
         if f1>best['f1']:
             best['f1'] = f1
@@ -104,8 +103,9 @@ print best
 
 # predict = []
 # classifier = TreeClassifier(ctr_train_data,ctr_train.target,6,40,80)
+# # classifier = TreeClassifier(ctr_train_data,ctr_train.target)
 # for i in range(len(ctr_test_data)):
-#     predict.append(classifier.predict([ctr_test_data[i]]))
+#         predict.append(classifier.predict([ctr_test_data[i]]))
 #   # predict.append(random.randint(0, 1))
 # p,r,f1 = getResult(predict,ctr_test.target)
 # print p,r,f1

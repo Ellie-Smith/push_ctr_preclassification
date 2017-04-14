@@ -11,14 +11,14 @@ def s3dDemo1():
     data = eq2013[1:, 0:].astype(np.float)
     X = data[:, 0]
     Y = data[:, 1]
-    Z = data[:, 3] * -1
+    Z = data[:, 3]
+    W = data[:,4]
     C = []
     # 下面这循环是根据Z值（地震深度）设置颜色
-    for z in Z:
-        if z >= -60:
-            C.append("r")
-        elif z < -300:
-            C.append("k")
+    for z in W:
+        if z == 0:
+            C.append("b")
+            # continue
         else:
             C.append("y")
 
@@ -29,7 +29,7 @@ def s3dDemo1():
     # zs表示z方向的变量，这三个方向上的变量都可以用list的形式表示
     # m表示点的形式，o是圆形的点，^是三角形（marker)
     # c表示颜色（color for short）
-    ax.scatter(X, Y, Z, c='r', marker='^')  # 点为红色三角形
+    ax.scatter(X, Y, Z, c=C,marker='o')  # 点为红色三角形
 
     # 设置坐标轴
     ax.set_xlabel('X Label')

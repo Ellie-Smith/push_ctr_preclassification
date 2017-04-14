@@ -9,7 +9,7 @@ axes = plt.subplot(111)
 
 # ctr_train = load_iris('ctr1(send,open,ctr).csv')
 # ctr_train = load_iris('ctr(send,open,ctr).csv')
-ctr_train = load_iris('train2.csv')
+ctr_train = load_iris('train.csv')
 type1_x,type1_y,type2_x,type2_y = [],[],[],[]
 for i in range(len(ctr_train.data)):
     if ctr_train.target[i] == 0:
