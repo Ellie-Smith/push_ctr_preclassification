@@ -31,7 +31,3 @@ axes.legend((type1, type2), ('0', '1'),loc=1)
 
 
 plt.show()
-
-
-
-
