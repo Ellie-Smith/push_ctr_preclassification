@@ -26,12 +26,14 @@ import random
 
 # load the dataset
 
-ctr_train = load_iris('train2.csv')
-ctr_test = load_iris('test2.csv')
+ctr_train = load_iris('train5.csv')
+ctr_test = load_iris('test5.csv')
 # ctr_train_data = preprocessing.scale(ctr_train.data)
 # ctr_test_data = preprocessing.scale(ctr_test.data)
 ctr_train_data = ctr_train.data
 ctr_test_data = ctr_test.data
+
+print type(ctr_test_data)
 
 def svmClassifier(data,target):
     clf = svm.SVC()
@@ -72,6 +74,7 @@ def getResult(predict_list,label):
         F1 = 0
     else:
         F1 = 2*percision*recall/(percision+recall)
+    print F1,percision,recall
     return percision,recall,F1
 
 
@@ -81,9 +84,14 @@ for depth in range(1,8):
     min_samples_leaf = 70
     while min_samples_leaf > 5:
         predict = []
-        classifier = TreeClassifier(ctr_train_data,ctr_train.target,depth,min_samples_leaf,2*min_samples_leaf)
+        # classifier = TreeClassifier(ctr_train_data,ctr_train.target,depth,min_samples_leaf,2*min_samples_leaf)
+        classifier = svmClassifier(ctr_train_data,ctr_train.target)
         for i in range(len(ctr_test_data)):
             predict.append(classifier.predict([ctr_test_data[i]]))
+            # if ctr_test_data[i][3]>0.11 and ctr_test_data[i][1]>3000:
+            #     predict.append(1)
+            # else:
+            #     predict.append(0)
             # print classifier.predict([ctr_test_data[i]]),ctr_test.target[i]
 
         p,r,f1 = getResult(predict,ctr_test.target)
@@ -102,7 +110,7 @@ print best
 
 
 # predict = []
-# classifier = TreeClassifier(ctr_train_data,ctr_train.target,6,40,80)
+# classifier = TreeClassifier(ctr_train_data,ctr_train.target,5,30,60)
 # # classifier = TreeClassifier(ctr_train_data,ctr_train.target)
 # for i in range(len(ctr_test_data)):
 #         predict.append(classifier.predict([ctr_test_data[i]]))
